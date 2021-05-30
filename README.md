@@ -48,7 +48,7 @@ initialise_avl_tree(&tree, maxElements, sizeof(ref_t));
 
 ## Adding elements
 
-To add n elements from a reference struct `ref_t refs[n]` array (with each element containing both key and value), you will need to pass the keys in as a separate array of key-type pointers (in the example case, `(word_t*)`), with each element pointing to the key at that index in the reference struct array. You can create that pointer array as such:
+To add n elements from a reference struct `ref_t refs[n]` array (with each element containing both key and value), you will need to create the keys as a separate array of key-type pointers (in the example case, `(word_t*)`), with each element pointing to the key at that index in the reference struct array. You can create that pointer array as such:
 
 ```
 word_t *keys[n];
@@ -57,7 +57,7 @@ for (int i = 0 ; i < n ; i++){
 }
 ```
 
-You can then insert the reference structs and keys to be added to the list and the tree, and the tree to be balanced:
+You can then insert the reference structs and keys (both cast as `(void*)` pointers) to be added to the list and the tree, and the tree to be balanced:
 
 ```
 avl_key_value_inserts(&tree, (void*)keys, (void*)refs, n);
@@ -82,6 +82,13 @@ To find the corresponding value in the reference struct:
 ```
 ref_t* val = (ref_t*)node->ref;
 printf("The value is %s\n", val->value);
+```
+
+## Cleaning up
+Don't forget to free the tree when you don't need it anymore:
+
+```
+free_avl_tree(&tree);
 ```
 
 ## Notes

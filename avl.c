@@ -45,6 +45,7 @@ void TEST_another(){
 
   avl_node_t* node = search_closest(&tree, (void*)(&(refs[125].word_key)));
   printf("Node key: %s\n", ((word_t*)node->key)->str);
+  free_avl_tree(&tree);
 }
 
 void TEST_new(){
